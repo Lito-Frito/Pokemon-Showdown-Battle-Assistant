@@ -6,7 +6,7 @@ It prints the following information to the user:
 take STRONG damage from: 2x =>  [ list of types]
 take STRONG damage from: 2x =>  [list of types]"""
 
-from defense_dict import defense_multiplier_dict
+from Dicts.defense_dict import defense_multiplier_dict
 
 def defense_calculator(pokemon_type1, pokemon_type2):
     # The final result that's returned to the user will populate here

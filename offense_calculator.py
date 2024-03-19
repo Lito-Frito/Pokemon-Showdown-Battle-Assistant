@@ -6,7 +6,7 @@ It prints the following information to the user:
 * Weak against: {formatted_result}
 * Ineffective against: {formatted_result}"""
 
-from offense_dict import offense_multiplier_dict
+from Dicts.offense_dict import offense_multiplier_dict
 
 def offense_calculator(pokemon_type1, pokemon_type2):
     """This function will calculate the offensive multiplier for the pokemon's type(s)"""
