@@ -8,7 +8,7 @@ from defense_calculator import defense_calculator
 
 
 def main():
-    """This function call a function for the offensive stats and another for the defensive ones.
+    """This function calls a function for the offensive stats and another for the defensive ones.
     Both return a list of  multipliers for each type, given respective weaknesses and resistances"""
 
     # Program's name:
@@ -33,12 +33,12 @@ def main():
             # Determine the pokemon's type(s):
             pokemon_type1, pokemon_type2 = find_types()
 
-            # Run offensive & defensive analyses the Pokemon's type(s):
+            # Run offensive & defensive analyses on the Pokemon's type(s):
             offensive_analysis = offense_calculator(pokemon_type1, pokemon_type2)
             defensive_analysis = defense_calculator(pokemon_type1, pokemon_type2)
 
             # Ask user if they want to continue and update still_playing accordingly:
-            still_playing = True # will change to False if user enters "n"
+            still_playing = True # will change to False if user enters "n" on L45
             while still_playing:
 
                 # Ask the user to start another analysis
