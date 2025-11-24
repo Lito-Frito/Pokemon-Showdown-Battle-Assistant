@@ -24,9 +24,25 @@ def get_all_offensive_multipliers(def_type1, def_type2):
         mults[attacking_type] = mult
     return mults
 
+def get_opponent_offensive_mults(opponent_type1, opponent_type2):
+    """Calculate offensive multipliers for the opponent against all types."""
+    mults = {}
+    for defender in offense_multiplier_dict:
+        if defender == "none":
+            continue
+        mult = 1
+        for opponent_type in [opponent_type1, opponent_type2]:
+            if opponent_type != "none":
+                for multiplier, types in offense_multiplier_dict[opponent_type].items():
+                    if defender in types:
+                        mult *= multiplier
+                        break
+        mults[defender] = mult
+    return mults
+
 def print_offensive_table(pokemon_type1, pokemon_type2):
     """Print the offensive analysis table for the given Pokemon types."""
-    mults = get_all_offensive_multipliers(pokemon_type1, pokemon_type2)
+    mults = get_opponent_offensive_mults(pokemon_type1, pokemon_type2)
     
     offense_table = {
         4: [],

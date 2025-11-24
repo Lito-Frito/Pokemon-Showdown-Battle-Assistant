@@ -17,7 +17,7 @@ offense_multiplier_dict = {
         "electric": {
             2: ["water", "flying"],
             1: ["normal", "fire", "ice", "fighting", "poison", "psychic", "bug", "rock", "dark", "steel", "fairy", "none"],
-            0.5: ["electric", "grass", "dragon", "ground"],
+            0.5: ["electric", "grass", "dragon"],
             0: ["ground"]
         },
         "grass": {
@@ -72,7 +72,7 @@ offense_multiplier_dict = {
         },
         "ghost": {
             2: ["psychic", "ghost"],
-            1: ["normal", "fire", "water", "electric", "grass", "ice", "fighting", "poison", "ground", "flying", "bug", "rock", "dragon", "steel", "fairy", "none"],
+            1: ["fire", "water", "electric", "grass", "ice", "fighting", "poison", "ground", "flying", "bug", "rock", "dragon", "steel", "fairy", "none"],
             0.5: ["dark"],
             0: ["normal"]
         },

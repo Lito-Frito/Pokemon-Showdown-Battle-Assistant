@@ -1,5 +1,5 @@
 import streamlit as st
-from offense_calculator import get_all_offensive_multipliers
+from offense_calculator import get_all_offensive_multipliers, get_opponent_offensive_mults
 from defense_calculator import defense_calculator
 
 st.title("Pokemon Showdown Battle Assistant")
@@ -17,7 +17,7 @@ if st.button("Analyze"):
         st.error("Please select the first type.")
     else:
         # Get data
-        offensive_mults = get_all_offensive_multipliers(type1, type2)
+        offensive_mults = get_opponent_offensive_mults(type1, type2)
         defensive_mults = defense_calculator(type1, type2)
         
         # Prepare tables
