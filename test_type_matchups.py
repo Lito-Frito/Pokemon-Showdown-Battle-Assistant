@@ -86,5 +86,13 @@ class TestTypeMatchups(unittest.TestCase):
         self.assertEqual(mults["grass"], 1.0)  # fire 0.5, water 2 -> 1
         self.assertEqual(mults["electric"], 2.0)  # fire 1, water 2 -> 2
 
+    def test_fighting_dark_dual_defensive(self):
+        mults = defense_calculator("fighting", "dark")
+        self.assertEqual(mults["fighting"], 2)
+        self.assertEqual(mults["flying"], 2)
+        self.assertEqual(mults["rock"], 0.5)
+        self.assertEqual(mults["ghost"], 0.5)
+        self.assertEqual(mults["dark"], 0.25)
+
 if __name__ == '__main__':
     unittest.main()
