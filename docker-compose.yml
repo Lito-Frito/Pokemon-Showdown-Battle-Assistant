@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   pokemon-assistant:
-    build: .
+    image: crc8109/pokemon-assistant:latest  # Use the pushed image
     ports:
       - "8501:8501"
     restart: unless-stopped
