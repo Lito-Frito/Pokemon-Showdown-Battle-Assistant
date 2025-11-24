@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from offense_calculator import get_all_offensive_multipliers, get_opponent_offensive_mults
 from defense_calculator import defense_calculator
 
@@ -30,8 +31,16 @@ if st.button("Analyze"):
             table_data = []
             for mult in sorted(grouped.keys(), reverse=True):
                 if mult != 1:
+                    if mult >= 2:
+                        label = "Super Effective"
+                    elif mult < 1 and mult > 0:
+                        label = "Not Very Effective"
+                    elif mult == 0:
+                        label = "Immune (No Damage)"
+                    else:
+                        label = f"{mult}x"
                     types_str = ", ".join(grouped[mult])
-                    table_data.append([f"{mult}x", types_str])
+                    table_data.append([label, f"{mult}x", types_str])
             return table_data
         
         offensive_table = create_table(offensive_mults, "Offensive")
@@ -40,8 +49,16 @@ if st.button("Analyze"):
         # Display
         st.subheader("Defensive Analysis")
         st.write("Damage multipliers the opponent takes:")
-        st.table(defensive_table)
+        if defensive_table:
+            df_def = pd.DataFrame(defensive_table, columns=["Effectiveness", "Multiplier", "Types"])
+            st.dataframe(df_def, hide_index=True, use_container_width=True)
+        else:
+            st.write("No data available.")
         
         st.subheader("Offensive Analysis")
         st.write("Damage multipliers the opponent deals:")
-        st.table(offensive_table)
+        if offensive_table:
+            df_off = pd.DataFrame(offensive_table, columns=["Effectiveness", "Multiplier", "Types"])
+            st.dataframe(df_off, hide_index=True, use_container_width=True)
+        else:
+            st.write("No data available.")
