@@ -69,21 +69,33 @@ def print_offensive_table(pokemon_type1, pokemon_type2):
     rows = []
     for multiplier in sorted(offense_table.keys(), reverse=True):
         if offense_table[multiplier] != [] and multiplier != 1:
-            mult_str = f"{multiplier}x"
+            if multiplier == 4:
+                mult_str = "Ultra Effective"
+            elif multiplier == 2:
+                mult_str = "Super Effective"
+            elif multiplier == 0.5:
+                mult_str = "Not Very Effective"
+            elif multiplier == 0.25:
+                mult_str = "Mostly Ineffective"
+            elif multiplier == 0:
+                mult_str = "Ineffective (Immune)"
+            else:
+                mult_str = f"{multiplier}x"
             types_str = ", ".join(offense_table[multiplier])
             rows.append((mult_str, types_str))
     
     # Find max length for types
     max_types_len = max(len(types_str) for _, types_str in rows) if rows else 0
     types_width = max(34, max_types_len + 2)
+    mult_width = 20  # Wider for descriptive labels
     
     print("\nOffensive Analysis Table:")
-    print("┌" + "─" * 12 + "┬" + "─" * types_width + "┐")
-    print("│" + " Multiplier " + "│" + f"{' Types':<{types_width}}" + "│")
-    print("├" + "─" * 12 + "┼" + "─" * types_width + "┤")
+    print("┌" + "─" * mult_width + "┬" + "─" * types_width + "┐")
+    print("│" + f"{' Effectiveness':<{mult_width}}" + "│" + f"{' Types':<{types_width}}" + "│")
+    print("├" + "─" * mult_width + "┼" + "─" * types_width + "┤")
     for mult_str, types_str in rows:
-        print("│" + f" {mult_str:<10} " + "│" + f" {types_str:<{types_width-1}}" + "│")
-    print("└" + "─" * 12 + "┴" + "─" * types_width + "┘")
+        print("│" + f" {mult_str:<{mult_width-1}}" + "│" + f" {types_str:<{types_width-1}}" + "│")
+    print("└" + "─" * mult_width + "┴" + "─" * types_width + "┘")
 
 def offense_calculator(pokemon_type1, pokemon_type2):
     """This function will calculate the offensive multiplier for the pokemon's type(s)"""
