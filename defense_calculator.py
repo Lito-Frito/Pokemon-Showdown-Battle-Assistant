@@ -19,23 +19,22 @@ def defense_calculator(pokemon_type1, pokemon_type2):
         0: []
     }
 
-    # Placeholder dictionary to help determine the final multiplier, given some type(s)
-    calc_final_multiplier_dict = {
-        # E.g. "normal": 1
-    }
-
-    # Append the first type to multiplier_dict to determine final multiplier:
-    for multiplier in defense_multiplier_dict[pokemon_type1]:
-        for defense_dict_type in defense_multiplier_dict[pokemon_type1][multiplier]:
-            calc_final_multiplier_dict[defense_dict_type] = multiplier
+    # Get all types
+    all_types = [t for t in defense_multiplier_dict if t != "none"]
     
-    # Repeat for second type && compare its multiplier to determine final one:
+    # Placeholder dictionary to help determine the final multiplier, given some type(s)
+    calc_final_multiplier_dict = {t: 1.0 for t in all_types}
+
+    # Update for first type
+    for multiplier, types in defense_multiplier_dict[pokemon_type1].items():
+        for t in types:
+            calc_final_multiplier_dict[t] *= multiplier
+    
+    # Update for second type
     if pokemon_type2 != "none":
-        for multiplier in defense_multiplier_dict[pokemon_type2]:
-            for defense_dict_type in defense_multiplier_dict[pokemon_type2][multiplier]:
-                # Compare the multipliers and multiply them to determine the new multiplier for that type:
-                if defense_dict_type in calc_final_multiplier_dict:
-                    calc_final_multiplier_dict[defense_dict_type] *= multiplier
+        for multiplier, types in defense_multiplier_dict[pokemon_type2].items():
+            for t in types:
+                calc_final_multiplier_dict[t] *= multiplier
     
     # Insert data into defense_analysis in a clean format
     for type in calc_final_multiplier_dict:
