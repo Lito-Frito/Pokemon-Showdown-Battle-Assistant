@@ -18,7 +18,6 @@ if st.button("Analyze"):
         st.error("Please select the first type.")
     else:
         # Get data
-        offensive_mults = get_opponent_offensive_mults(type1, type2)
         defensive_mults = defense_calculator(type1, type2)
         
         # Prepare tables
@@ -43,7 +42,6 @@ if st.button("Analyze"):
                     table_data.append([label, f"{mult}x", types_str])
             return table_data
         
-        offensive_table = create_table(offensive_mults, "Offensive")
         defensive_table = create_table(defensive_mults, "Defensive")
         
         # Display
@@ -57,8 +55,24 @@ if st.button("Analyze"):
         
         st.subheader("Offensive Analysis")
         st.write("Damage multipliers the opponent deals:")
-        if offensive_table:
-            df_off = pd.DataFrame(offensive_table, columns=["Effectiveness", "Multiplier", "Types"])
-            st.dataframe(df_off, hide_index=True, use_container_width=True)
+        
+        # Offensive for type1
+        offensive_mults1 = get_opponent_offensive_mults(type1, "none")
+        offensive_table1 = create_table(offensive_mults1, "Offensive")
+        st.write(f"**{type1.capitalize()} moves:**")
+        if offensive_table1:
+            df_off1 = pd.DataFrame(offensive_table1, columns=["Effectiveness", "Multiplier", "Types"])
+            st.dataframe(df_off1, hide_index=True, use_container_width=True)
         else:
             st.write("No data available.")
+        
+        # Offensive for type2 if present
+        if type2 != "none":
+            offensive_mults2 = get_opponent_offensive_mults(type2, "none")
+            offensive_table2 = create_table(offensive_mults2, "Offensive")
+            st.write(f"**{type2.capitalize()} moves:**")
+            if offensive_table2:
+                df_off2 = pd.DataFrame(offensive_table2, columns=["Effectiveness", "Multiplier", "Types"])
+                st.dataframe(df_off2, hide_index=True, use_container_width=True)
+            else:
+                st.write("No data available.")
