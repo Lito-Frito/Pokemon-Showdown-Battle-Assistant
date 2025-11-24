@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 #  ^  so that we can use Japanese characters in the program
 
+import os
 from textwrap import dedent
 from type_input import find_types
-from offense_calculator import offense_calculator
+from offense_calculator import offense_calculator, get_all_offensive_multipliers, print_offensive_table
 from defense_calculator import defense_calculator
 
 
@@ -33,21 +34,32 @@ def main():
             # Determine the pokemon's type(s):
             pokemon_type1, pokemon_type2 = find_types() #start here next time 5/11/24
 
+            # Clear the screen for fresh output
+            os.system('clear')
+
             # Run offensive & defensive analyses on the Pokemon's type(s):
-            offensive_analysis = offense_calculator(pokemon_type1, pokemon_type2)
-            defensive_analysis = defense_calculator(pokemon_type1, pokemon_type2)
+            # offensive_analysis = offense_calculator(pokemon_type1, pokemon_type2)
+            # defensive_analysis = defense_calculator(pokemon_type1, pokemon_type2)
+
+            # Get multipliers for all types
+            acceptable_types = ["normal", "fire", "water", "electric", "grass", "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dragon", "dark", "steel", "fairy"]
+            offensive_mults = get_all_offensive_multipliers(pokemon_type1, pokemon_type2)
+            defensive_mults = defense_calculator(pokemon_type1, pokemon_type2)
+
+            # Print offensive table
+            print_offensive_table(pokemon_type1, pokemon_type2)
 
             # Ask user if they want to continue and update still_playing accordingly:
             still_playing = True # will change to False if user enters "n" on L45
             while still_playing:
 
                 # Ask the user to start another analysis
-                keep_going = input("\nWould you like to continue? (y/n): ")
+                keep_going = input("\nWould you like to continue? (y/n): ").lower().strip()
 
-                if keep_going.lower() == "y":
+                if keep_going in ["y", "yes", ""]:
                     break
 
-                elif keep_going.lower() == "n":
+                elif keep_going in ["n", "no"]:
                     still_playing = False
                     print("\n\nProgram finished.")
                     print("Thank you for using the Pokemon Showdown Battle Assistant, BeroBero! See you next time!")

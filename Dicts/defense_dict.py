@@ -81,8 +81,8 @@ defense_multiplier_dict = {
         "dark": {
             2: ["fighting", "bug", "fairy"],
             1: ["normal", "fire", "water", "electric", "grass", "ice", "poison", "ground", "flying", "rock", "dragon", "steel"],
-            0.5: ["ghost", "dark"],
-            0: ["psychic"]
+            0.5: ["ghost", "dark", "psychic"],
+            0: []
         },
         "steel": {
             2: ["fire", "fighting", "ground"],

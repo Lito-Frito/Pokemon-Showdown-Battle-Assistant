@@ -8,6 +8,67 @@ It prints the following information to the user:
 
 from Dicts.offense_dict import offense_multiplier_dict
 
+def get_all_offensive_multipliers(def_type1, def_type2):
+    """Calculate offensive multipliers for all types against the given defending types."""
+    mults = {}
+    for attacking_type in offense_multiplier_dict:
+        if attacking_type == "none":
+            continue
+        mult = 1
+        for def_type in [def_type1, def_type2]:
+            if def_type != "none":
+                for multiplier, types in offense_multiplier_dict[attacking_type].items():
+                    if def_type in types:
+                        mult *= multiplier
+                        break
+        mults[attacking_type] = mult
+    return mults
+
+def print_offensive_table(pokemon_type1, pokemon_type2):
+    """Print the offensive analysis table for the given Pokemon types."""
+    mults = get_all_offensive_multipliers(pokemon_type1, pokemon_type2)
+    
+    offense_table = {
+        4: [],
+        2: [],
+        1: [],
+        0.5: [],
+        0.25: [],
+        0: []
+    }
+    
+    for t, mult in mults.items():
+        offense_table[mult].append(t)
+    
+    formal_types = ([pokemon_type1[0].upper() + pokemon_type1[1:], pokemon_type2[0].upper() + pokemon_type2[1:]])
+    if pokemon_type2 == "none":
+        formal_types_str = formal_types[0]
+    else:
+        formal_types_str = " & ".join(formal_types)
+    
+    print(f"\nHere's the offensive analysis (what types {formal_types_str} can beat up):")
+    print(f"\n{formal_types_str} ~~~")
+    
+    # Collect rows
+    rows = []
+    for multiplier in sorted(offense_table.keys(), reverse=True):
+        if offense_table[multiplier] != [] and multiplier != 1:
+            mult_str = f"{multiplier}x"
+            types_str = ", ".join(offense_table[multiplier])
+            rows.append((mult_str, types_str))
+    
+    # Find max length for types
+    max_types_len = max(len(types_str) for _, types_str in rows) if rows else 0
+    types_width = max(34, max_types_len + 2)
+    
+    print("\nOffensive Analysis Table:")
+    print("┌" + "─" * 12 + "┬" + "─" * types_width + "┐")
+    print("│" + " Multiplier " + "│" + f"{' Types':<{types_width}}" + "│")
+    print("├" + "─" * 12 + "┼" + "─" * types_width + "┤")
+    for mult_str, types_str in rows:
+        print("│" + f" {mult_str:<10} " + "│" + f" {types_str:<{types_width-1}}" + "│")
+    print("└" + "─" * 12 + "┴" + "─" * types_width + "┘")
+
 def offense_calculator(pokemon_type1, pokemon_type2):
     """This function will calculate the offensive multiplier for the pokemon's type(s)"""
 

@@ -12,14 +12,15 @@ def find_types():
 
     # Get second type and ensure type is valid:
     while True:
-        pokemon_type2 = input("\nWhat is the pokemon's second type? > ").lower()
+        pokemon_type2 = input("\nWhat is the pokemon's second type? > ").lower().strip()
+
+        if pokemon_type2 in ["none", ""]:
+            pokemon_type2 = "none"
+            break
 
         if pokemon_type2 == pokemon_type1:
             print("\nYou entered the same type as the first type. Please enter a different type or 'none'.")
             continue
-
-        if pokemon_type2 == "none":
-            break
 
         if validate_type(pokemon_type2) is True:
             break

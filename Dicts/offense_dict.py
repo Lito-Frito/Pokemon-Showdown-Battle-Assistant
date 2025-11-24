@@ -32,8 +32,8 @@ offense_multiplier_dict = {
         },
         "fighting": {
             2: ["normal", "ice", "rock", "dark", "steel"],
-            1: ["fire", "water", "electric", "grass", "fighting", "ground", "dragon", "none"],
-            0.5: ["poison", "flying", "psychic", "bug", "fairy"],
+            1: ["fire", "water", "electric", "grass", "fighting", "ground", "dragon", "poison", "none"],
+            0.5: ["flying", "psychic", "bug", "fairy"],
             0: ["ghost"]
         },
         "poison": {
@@ -84,8 +84,8 @@ offense_multiplier_dict = {
         },
         "dark": {
             2: ["psychic", "ghost"],
-            1: ["normal", "fire", "water", "electric", "grass", "ice", "poison", "ground", "flying", "bug", "rock", "dragon", "steel", "none"],
-            0.5: ["fighting", "dark", "fairy"]
+            1: ["normal", "fire", "water", "electric", "grass", "ice", "poison", "ground", "flying", "rock", "dragon", "steel", "none"],
+            0.5: ["fighting", "bug", "dark", "fairy", "psychic"]
         },
         "steel": {
             2: ["ice", "rock", "fairy"],
@@ -94,8 +94,8 @@ offense_multiplier_dict = {
         },
         "fairy": {
             2: ["fighting", "dragon", "dark"],
-            1: ["normal", "water", "electric", "grass", "ice", "ground", "flying", "psychic", "bug", "rock", "ghost", "fairy", "none"],
-            0.5: ["fire", "poison", "steel"]
+            1: ["normal", "fire", "water", "electric", "grass", "ice", "ground", "flying", "psychic", "bug", "rock", "ghost", "fairy", "none"],
+            0.5: ["poison", "steel"]
         },
         "none": {
             1: ["normal", "fire", "water", "electric", "grass", "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "dragon", "dark", "steel", "fairy"]

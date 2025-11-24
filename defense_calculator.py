@@ -54,16 +54,36 @@ def defense_calculator(pokemon_type1, pokemon_type2):
     
     # Create a formal format for the output e.g. ["normal", "ice"]-> "Normal & Ice":
     formal_types = ([pokemon_type1[0].upper() + pokemon_type1[1:], pokemon_type2[0].upper() + pokemon_type2[1:]])
-    formal_types = " & ".join(formal_types)
+    if pokemon_type2 == "none":
+        formal_types_str = formal_types[0]
+    else:
+        formal_types_str = " & ".join(formal_types)
 
     # Start printing the final result to the user:
-    print(f"\nHere's the defensive analysis (what types are strong/weak) against {formal_types}:")
-    print(f"\n{formal_types} ~~~")
+    print(f"\nHere's the defensive analysis (what types are strong/weak) against {formal_types_str}:")
+    print(f"\n{formal_types_str} ~~~")
 
-    # Print defense_analysis in a clean format:
-    for multiplier in defense_analysis:
-        formal_multiplier = str(multiplier) + "x" + " => "
-        if defense_analysis[multiplier] != [] and multiplier != 1:
-            print(f"\n{analysis_prompts[multiplier]} {formal_multiplier} {defense_analysis[multiplier]}:")
+    # Print defense_analysis in a table format
+    print("\nDefensive Analysis Table:")
     
-    return
+    # Collect rows
+    rows = []
+    for multiplier in sorted(defense_analysis.keys(), reverse=True):
+        if defense_analysis[multiplier] != [] and multiplier != 1:
+            mult_str = f"{multiplier}x"
+            types_str = ", ".join(defense_analysis[multiplier])
+            rows.append((mult_str, types_str))
+    
+    # Find max length for types
+    max_types_len = max(len(types_str) for _, types_str in rows) if rows else 0
+    types_width = max(34, max_types_len + 2)
+    
+    # Print table
+    print("┌" + "─" * 12 + "┬" + "─" * types_width + "┐")
+    print("│" + " Multiplier " + "│" + f"{' Types':<{types_width}}" + "│")
+    print("├" + "─" * 12 + "┼" + "─" * types_width + "┤")
+    for mult_str, types_str in rows:
+        print("│" + f" {mult_str:<10} " + "│" + f" {types_str:<{types_width-1}}" + "│")
+    print("└" + "─" * 12 + "┴" + "─" * types_width + "┘")
+    
+    return calc_final_multiplier_dict
