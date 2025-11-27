@@ -30,7 +30,9 @@ if st.button("Analyze"):
             table_data = []
             for mult in sorted(grouped.keys(), reverse=True):
                 if mult != 1:
-                    if mult >= 2:
+                    if mult == 4:
+                        label = "Ultra Effective"
+                    elif mult == 2:
                         label = "Super Effective"
                     elif mult < 1 and mult > 0:
                         label = "Not Very Effective"

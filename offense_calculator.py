@@ -84,10 +84,64 @@ def print_offensive_table(pokemon_type1, pokemon_type2):
             types_str = ", ".join(offense_table[multiplier])
             rows.append((mult_str, types_str))
     
-    # Find max length for types
+    # Find max lengths
+    max_mult_len = max(len(mult_str) for mult_str, _ in rows) if rows else 0
     max_types_len = max(len(types_str) for _, types_str in rows) if rows else 0
+    mult_width = max(20, max_mult_len + 2)
     types_width = max(34, max_types_len + 2)
-    mult_width = 20  # Wider for descriptive labels
+    
+    print("\nOffensive Analysis Table:")
+    print("┌" + "─" * mult_width + "┬" + "─" * types_width + "┐")
+    print("│" + f"{' Effectiveness':<{mult_width}}" + "│" + f"{' Types':<{types_width}}" + "│")
+    print("├" + "─" * mult_width + "┼" + "─" * types_width + "┤")
+    for mult_str, types_str in rows:
+        print("│" + f" {mult_str:<{mult_width-1}}" + "│" + f" {types_str:<{types_width-1}}" + "│")
+    print("└" + "─" * mult_width + "┴" + "─" * types_width + "┘")
+
+def print_offensive_table_for_type(pokemon_type, mults):
+    """Print the offensive analysis table for a single type."""
+    formal_type = pokemon_type[0].upper() + pokemon_type[1:]
+    
+    print(f"\nHere's the offensive analysis (what types {formal_type} can beat up):")
+    print(f"\n{formal_type} ~~~")
+    
+    # Group by multiplier
+    offense_table = {
+        4: [],
+        2: [],
+        1: [],
+        0.5: [],
+        0.25: [],
+        0: []
+    }
+    
+    for t, mult in mults.items():
+        offense_table[mult].append(t)
+    
+    # Collect rows
+    rows = []
+    for multiplier in sorted(offense_table.keys(), reverse=True):
+        if offense_table[multiplier] != [] and multiplier != 1:
+            if multiplier == 4:
+                mult_str = "Ultra Effective"
+            elif multiplier == 2:
+                mult_str = "Super Effective"
+            elif multiplier == 0.5:
+                mult_str = "Not Very Effective"
+            elif multiplier == 0.25:
+                mult_str = "Mostly Ineffective"
+            elif multiplier == 0:
+                mult_str = "Ineffective (Immune)"
+            else:
+                mult_str = f"{multiplier}x"
+            types_str = ", ".join(offense_table[multiplier])
+            rows.append((mult_str, types_str))
+    
+    # Find max lengths
+    max_mult_len = max(len(mult_str) for mult_str, _ in rows) if rows else 0
+    max_types_len = max(len(types_str) for _, types_str in rows) if rows else 0
+    mult_width = max(20, max_mult_len + 2)
+    types_width = max(34, max_types_len + 2)
     
     print("\nOffensive Analysis Table:")
     print("┌" + "─" * mult_width + "┬" + "─" * types_width + "┐")

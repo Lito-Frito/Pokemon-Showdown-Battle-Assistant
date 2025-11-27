@@ -69,20 +69,36 @@ def defense_calculator(pokemon_type1, pokemon_type2):
     rows = []
     for multiplier in sorted(defense_analysis.keys(), reverse=True):
         if defense_analysis[multiplier] != [] and multiplier != 1:
+            if multiplier == 4:
+                eff_str = "Ultra Effective"
+            elif multiplier == 2:
+                eff_str = "Super Effective"
+            elif multiplier == 0.5:
+                eff_str = "Not Very Effective"
+            elif multiplier == 0.25:
+                eff_str = "Mostly Ineffective"
+            elif multiplier == 0:
+                eff_str = "Immune (No Damage)"
+            else:
+                eff_str = f"{multiplier}x"
             mult_str = f"{multiplier}x"
             types_str = ", ".join(defense_analysis[multiplier])
-            rows.append((mult_str, types_str))
+            rows.append((eff_str, mult_str, types_str))
     
-    # Find max length for types
-    max_types_len = max(len(types_str) for _, types_str in rows) if rows else 0
+    # Find max lengths
+    max_eff_len = max(len(eff_str) for eff_str, _, _ in rows) if rows else 0
+    max_mult_len = max(len(mult_str) for _, mult_str, _ in rows) if rows else 0
+    max_types_len = max(len(types_str) for _, _, types_str in rows) if rows else 0
+    eff_width = max(20, max_eff_len + 2)
+    mult_width = max(12, max_mult_len + 2)
     types_width = max(34, max_types_len + 2)
     
     # Print table
-    print("┌" + "─" * 12 + "┬" + "─" * types_width + "┐")
-    print("│" + " Multiplier " + "│" + f"{' Types':<{types_width}}" + "│")
-    print("├" + "─" * 12 + "┼" + "─" * types_width + "┤")
-    for mult_str, types_str in rows:
-        print("│" + f" {mult_str:<10} " + "│" + f" {types_str:<{types_width-1}}" + "│")
-    print("└" + "─" * 12 + "┴" + "─" * types_width + "┘")
+    print("┌" + "─" * eff_width + "┬" + "─" * mult_width + "┬" + "─" * types_width + "┐")
+    print("│" + f"{' Effectiveness':<{eff_width}}" + "│" + f"{' Multiplier':<{mult_width}}" + "│" + f"{' Types':<{types_width}}" + "│")
+    print("├" + "─" * eff_width + "┼" + "─" * mult_width + "┼" + "─" * types_width + "┤")
+    for eff_str, mult_str, types_str in rows:
+        print("│" + f" {eff_str:<{eff_width-1}}" + "│" + f" {mult_str:<{mult_width-1}}" + "│" + f" {types_str:<{types_width-1}}" + "│")
+    print("└" + "─" * eff_width + "┴" + "─" * mult_width + "┴" + "─" * types_width + "┘")
     
     return calc_final_multiplier_dict

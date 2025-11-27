@@ -4,7 +4,7 @@
 import os
 from textwrap import dedent
 from type_input import find_types
-from offense_calculator import offense_calculator, get_all_offensive_multipliers, print_offensive_table
+from offense_calculator import offense_calculator, get_all_offensive_multipliers, print_offensive_table, print_offensive_table_for_type, get_opponent_offensive_mults
 from defense_calculator import defense_calculator
 
 
@@ -46,8 +46,13 @@ def main():
             offensive_mults = get_all_offensive_multipliers(pokemon_type1, pokemon_type2)
             defensive_mults = defense_calculator(pokemon_type1, pokemon_type2)
 
-            # Print offensive table
-            print_offensive_table(pokemon_type1, pokemon_type2)
+            # Print offensive tables per type
+            if pokemon_type1 != "none":
+                offensive_mults1 = get_opponent_offensive_mults(pokemon_type1, "none")
+                print_offensive_table_for_type(pokemon_type1, offensive_mults1)
+            if pokemon_type2 != "none":
+                offensive_mults2 = get_opponent_offensive_mults(pokemon_type2, "none")
+                print_offensive_table_for_type(pokemon_type2, offensive_mults2)
 
             # Ask user if they want to continue and update still_playing accordingly:
             still_playing = True # will change to False if user enters "n" on L45
