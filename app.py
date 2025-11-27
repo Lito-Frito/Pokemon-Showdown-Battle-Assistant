@@ -7,11 +7,13 @@ st.title("Pokemon Showdown Battle Assistant")
 st.write("Analyze type matchups for strategic Pokemon battles!")
 
 # Input for types
+types = ["normal", "fire", "water", "electric", "grass", "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dragon", "dark", "steel", "fairy"]
 col1, col2 = st.columns(2)
 with col1:
-    type1 = st.selectbox("Opponent's First Type", [""] + ["normal", "fire", "water", "electric", "grass", "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dragon", "dark", "steel", "fairy"])
+    type1 = st.selectbox("Opponent's First Type", [""] + types)
 with col2:
-    type2 = st.selectbox("Opponent's Second Type (optional)", ["none"] + ["normal", "fire", "water", "electric", "grass", "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dragon", "dark", "steel", "fairy"])
+    options2 = ["none"] + [t for t in types if t != type1] if type1 else ["none"] + types
+    type2 = st.selectbox("Opponent's Second Type (optional)", options2)
 
 if st.button("Analyze"):
     if type1 == "":
