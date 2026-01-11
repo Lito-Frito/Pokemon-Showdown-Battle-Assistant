@@ -76,7 +76,7 @@ def print_offensive_table(pokemon_type1, pokemon_type2):
             elif multiplier == 0.5:
                 mult_str = "Not Very Effective"
             elif multiplier == 0.25:
-                mult_str = "Mostly Ineffective"
+                mult_str = "Especially Not Effective"
             elif multiplier == 0:
                 mult_str = "Ineffective (Immune)"
             else:
@@ -129,7 +129,7 @@ def print_offensive_table_for_type(pokemon_type, mults):
             elif multiplier == 0.5:
                 mult_str = "Not Very Effective"
             elif multiplier == 0.25:
-                mult_str = "Mostly Ineffective"
+                mult_str = "Especially Not Effective"
             elif multiplier == 0:
                 mult_str = "Ineffective (Immune)"
             else:

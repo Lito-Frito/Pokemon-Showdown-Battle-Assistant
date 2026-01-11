@@ -36,8 +36,10 @@ if st.button("Analyze"):
                         label = "Ultra Effective"
                     elif mult == 2:
                         label = "Super Effective"
-                    elif mult < 1 and mult > 0:
+                    elif mult == 0.5:
                         label = "Not Very Effective"
+                    elif mult == 0.25:
+                        label = "Especially Not Effective"
                     elif mult == 0:
                         label = "Immune (No Damage)"
                     else:

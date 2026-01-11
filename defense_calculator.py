@@ -76,7 +76,7 @@ def defense_calculator(pokemon_type1, pokemon_type2):
             elif multiplier == 0.5:
                 eff_str = "Not Very Effective"
             elif multiplier == 0.25:
-                eff_str = "Mostly Ineffective"
+                eff_str = "Especially Not Effective"
             elif multiplier == 0:
                 eff_str = "Immune (No Damage)"
             else:
