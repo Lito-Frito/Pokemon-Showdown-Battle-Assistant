@@ -1,6 +1,6 @@
-version: '3.8'
 services:
   pokemon-assistant:
+    container_name: Showdown_Battle_Assistant
     image: crc8109/pokemon-assistant:latest  # Use the pushed image
     ports:
       - "8501:8501"
